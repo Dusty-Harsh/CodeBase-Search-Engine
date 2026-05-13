@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+
+# VS Code
+.vscode/
+
+# FAISS Indexes
+vector_indexes/
+
+# Metadata
+metadata/
+
+# Indexed repositories
+indexed_repositories/
+
+# Environment Variables
+.env
+
+# OS Files
+.DS_Store
+Thumbs.db
