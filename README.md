@@ -16,6 +16,9 @@ This project indexes real GitHub repositories, generates embeddings for code chu
 - 💾 Persistent FAISS vector storage
 - 📁 Metadata persistence
 - 🚀 Real-time semantic retrieval
+- 🌳 Tree-sitter multi-language parsing
+- 🌐 JavaScript & TypeScript support
+- 🤖 Local LLM-ready architecture
 
 ---
 
@@ -201,9 +204,6 @@ http://127.0.0.1:8000/docs
 
 # 📌 Future Improvements
 
-- 🌳 Tree-sitter parsing
-- 🌐 Multi-language support
-- 🤖 LLM-based code explanations
 - ⚡ Hybrid retrieval (keyword + semantic)
 - 🔄 Async indexing pipeline
 - 🐳 Docker deployment

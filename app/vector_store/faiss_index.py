@@ -73,3 +73,7 @@ def search(query_embedding, k=3):
             results.append(metadata_store[idx])
 
     return results
+
+def get_all_metadata():
+
+    return metadata_store    

@@ -1,27 +1,79 @@
-from embeddings.embedding_service import generate_embedding
+from embeddings.embedding_service import (
+    generate_embedding
+)
 
-from vector_store.faiss_index import search
+from vector_store.faiss_index import (
+    search,
+    get_all_metadata
+)
 
-from llm.explainer import explain_code
+from search.keyword_search import (
+    keyword_search
+)
 
 
 def search_codebase(query):
 
+    # =========================
+    # SEMANTIC SEARCH
+    # =========================
+
     query_embedding = generate_embedding(query)
 
-    results = search(query_embedding)
+    semantic_results = search(
+        query_embedding,
+        k=5
+    )
 
-    enhanced_results = []
 
-    for result in results:
+    # =========================
+    # KEYWORD SEARCH
+    # =========================
 
-        explanation = explain_code(result["code"])
+    all_chunks = get_all_metadata()
 
-        enhanced_results.append({
-            "function_name": result["function_name"],
-            "file_path": result["file_path"],
-            "code": result["code"],
-            "explanation": explanation
-        })
+    keyword_results = keyword_search(
+        query,
+        all_chunks,
+        top_k=5
+    )
 
-    return enhanced_results
+
+    # =========================
+    # MERGE RESULTS
+    # =========================
+
+    combined_results = []
+
+    seen = set()
+
+
+    for result in semantic_results:
+
+        key = (
+            result["file_path"],
+            result["function_name"]
+        )
+
+        if key not in seen:
+
+            combined_results.append(result)
+
+            seen.add(key)
+
+
+    for result, score in keyword_results:
+
+        key = (
+            result["file_path"],
+            result["function_name"]
+        )
+
+        if key not in seen:
+
+            combined_results.append(result)
+
+            seen.add(key)
+
+
+    return combined_results[:5]

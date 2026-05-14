@@ -8,11 +8,32 @@ SUPPORTED_EXTENSIONS = [
 ]
 
 
+IGNORE_DIRECTORIES = [
+    "node_modules",
+    ".git",
+    "dist",
+    "build",
+    ".next",
+    "coverage",
+    "venv",
+    "__pycache__"
+]
+
+
+MAX_FILES = 200
+
+
 def get_code_files(repo_path):
 
     code_files = []
 
     for root, dirs, files in os.walk(repo_path):
+
+        # Remove ignored directories
+        dirs[:] = [
+            d for d in dirs
+            if d not in IGNORE_DIRECTORIES
+        ]
 
         for file in files:
 
@@ -24,4 +45,10 @@ def get_code_files(repo_path):
                         os.path.join(root, file)
                     )
 
-    return code_files
+        if len(code_files) >= MAX_FILES:
+
+            print(f"⚠️ File limit reached ({MAX_FILES})")
+
+            break
+
+    return code_files[:MAX_FILES]

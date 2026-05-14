@@ -1,17 +1,26 @@
 from fastapi import APIRouter
+from fastapi import BackgroundTasks
 
-from services.indexing_service import index_repository
+from services.indexing_service import (
+    index_repository
+)
 
 
 router = APIRouter()
 
 
 @router.post("/index")
-def index_repo(repo_url: str):
+def index_repo(
+    repo_url: str,
+    background_tasks: BackgroundTasks
+):
 
-    index_repository(repo_url)
+    background_tasks.add_task(
+        index_repository,
+        repo_url
+    )
 
     return {
-        "message": "Repository indexed successfully",
+        "message": "Background indexing started",
         "repo_url": repo_url
     }
