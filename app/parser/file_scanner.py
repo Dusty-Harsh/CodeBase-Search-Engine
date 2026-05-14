@@ -1,18 +1,27 @@
 import os
 
 
-def get_python_files(repo_path):
+SUPPORTED_EXTENSIONS = [
+    ".py",
+    ".js",
+    ".ts"
+]
 
-    python_files = []
+
+def get_code_files(repo_path):
+
+    code_files = []
 
     for root, dirs, files in os.walk(repo_path):
 
         for file in files:
 
-            if file.endswith(".py"):
+            for ext in SUPPORTED_EXTENSIONS:
 
-                python_files.append(
-                    os.path.join(root, file)
-                )
+                if file.endswith(ext):
 
-    return python_files
+                    code_files.append(
+                        os.path.join(root, file)
+                    )
+
+    return code_files

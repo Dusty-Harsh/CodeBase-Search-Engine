@@ -1,7 +1,7 @@
 from parser.repo_loader import clone_repository
 
-from parser.file_scanner import get_python_files
-from parser.chunker import extract_functions_from_file
+from parser.file_scanner import get_code_files
+from parser.tree_sitter_parser import extract_functions_tree_sitter
 
 from embeddings.embedding_service import generate_embedding
 
@@ -15,13 +15,13 @@ def index_repository(repo_url):
 
     all_chunks = []
 
-    python_files = get_python_files(repo_path)
+    code_files = get_code_files(repo_path)
 
-    print("Python files:", python_files)
+    print("code file:", code_files)
 
-    for file in python_files:
+    for file in code_files:
 
-        chunks = extract_functions_from_file(file)
+        chunks = extract_functions_tree_sitter(file)
 
         all_chunks.extend(chunks)
 
