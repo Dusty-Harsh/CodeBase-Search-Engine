@@ -2,7 +2,9 @@
 
 An AI-powered semantic code search engine and conversational repository assistant that enables developers to query large codebases using natural language.
 
-The system indexes real GitHub repositories, parses multi-language codebases using Tree-sitter, generates semantic embeddings, stores vectors in FAISS, performs hybrid retrieval (semantic + keyword search), and provides conversational AI responses over repository context.
+The platform indexes real GitHub repositories, parses multi-language codebases using Tree-sitter, generates semantic embeddings, stores vectors in FAISS, performs hybrid retrieval (semantic + keyword search), and provides conversational AI responses over repository context.
+
+The system also includes a full-stack AI developer workspace built with React + Tailwind for interactive repository exploration and AI-assisted code understanding.
 
 ---
 
@@ -20,6 +22,29 @@ The system indexes real GitHub repositories, parses multi-language codebases usi
 - 🗂️ Metadata persistence
 - 🚀 FastAPI backend APIs
 - 🤖 Local LLM integration using Ollama + Mistral
+- 🖥️ Full-stack React developer workspace
+- 🌐 Frontend/backend API integration
+- 🧠 Graph-aware retrieval and dependency reasoning
+
+---
+
+# 🖥️ Frontend Workspace
+
+The project includes a modern AI-powered developer workspace built using React + Tailwind.
+
+Frontend capabilities include:
+- AI-powered repository chat
+- Semantic code retrieval UI
+- Retrieved context viewer
+- Repository indexing dashboard
+- Graph-aware repository reasoning
+- Interactive developer-style layout
+- Real-time backend integration
+
+The UI is inspired by modern developer tools such as:
+- Cursor
+- GitHub Copilot Chat
+- Sourcegraph Cody
 
 ---
 
@@ -35,36 +60,37 @@ Explain routing logic.
 Where is middleware used?
 
 How does token validation work?
+
+Which functions call validate_token?
 ```
 
 ---
 
-# 🏗️ System Architecture
+# 🏗️ Full System Architecture
 
 ```text
-                    GitHub Repository
-                            ↓
-                    Repository Cloning
-                            ↓
-                  Multi-language File Scanner
-                            ↓
-                 Tree-sitter Syntax Parsing
-                            ↓
-                    Function Extraction
-                            ↓
-                    Chunk Generation
-                            ↓
-                  Embedding Generation
-                            ↓
-                     FAISS Vector Store
-                            ↓
-          Hybrid Retrieval (Semantic + BM25)
-                            ↓
-                 Relevant Repository Context
-                            ↓
-                  LLM Context Injection
-                            ↓
-                Conversational AI Responses
+                    React Frontend Workspace
+                                ↓
+                        FastAPI Backend APIs
+                                ↓
+                   Hybrid Retrieval Engine
+                  (Semantic + BM25 Search)
+                                ↓
+                    Dependency Graph Layer
+                                ↓
+                    Repository Context Expansion
+                                ↓
+                        FAISS Vector Store
+                                ↓
+                     Embedding Retrieval Layer
+                                ↓
+                 Tree-sitter Multi-language Parsing
+                                ↓
+                        GitHub Repository
+                                ↓
+                     Ollama + Mistral LLM
+                                ↓
+                    Conversational AI Responses
 ```
 
 ---
@@ -78,9 +104,13 @@ How does token validation work?
 - Conversational Memory
 - Context Injection
 - Multi-language Syntax Parsing
+- Graph-aware Retrieval
+- Dependency Graph Expansion
 - Async Background Processing
 - Persistent Vector Indexing
 - Repository Ingestion Pipelines
+- Local LLM Orchestration
+- Full-stack AI System Design
 
 ---
 
@@ -88,6 +118,10 @@ How does token validation work?
 
 | Component | Technology |
 |---|---|
+| Frontend | React + Vite |
+| Styling | Tailwind CSS |
+| HTTP Client | Axios |
+| UI Icons | Lucide React |
 | Backend API | FastAPI |
 | Vector Database | FAISS |
 | Embeddings | Sentence Transformers |
@@ -123,6 +157,12 @@ codebase-search-engine/
 │   ├── vector_store/
 │   │
 │   └── main.py
+│
+├── frontend/
+│   ├── src/
+│   │   ├── services/
+│   │   ├── components/
+│   │   └── App.tsx
 │
 ├── indexed_repositories/
 │
@@ -185,13 +225,21 @@ DELETE /memory
 
 ---
 
+## Dependency Graph
+
+```http
+GET /graph
+```
+
+---
+
 # 🔍 How Hybrid Retrieval Works
 
 The system combines:
 
 ## 1. Semantic Search
 - Embedding-based similarity search
-- Captures meaning and intent
+- Captures meaning and developer intent
 
 ## 2. BM25 Keyword Search
 - Exact keyword matching
@@ -202,26 +250,51 @@ Both retrieval methods are merged to produce highly relevant repository context.
 
 ---
 
-# 🧠 Conversational Repository AI
+# 🧠 Graph-Aware Retrieval
+
+The system builds dependency graphs during repository indexing using AST analysis.
+
+This enables:
+- function relationship tracing
+- contextual retrieval expansion
+- architecture-aware AI responses
+- execution flow understanding
+
+Example:
+
+```text
+login_user()
+    ↓
+validate_token()
+    ↓
+auth_middleware()
+```
+
+The dependency graph is injected into the retrieval pipeline to improve repository reasoning quality.
+
+---
+
+# 💬 Conversational Repository AI
 
 The system supports repository-aware conversations using:
 
-- Hybrid retrieval
-- Context injection
-- Conversational memory
-- Local LLM inference
+- semantic retrieval
+- hybrid search
+- dependency graph expansion
+- conversational memory
+- local LLM inference
 
 This enables follow-up questions such as:
 
 ```text
 How does authentication work?
 
-What happens after token validation?
+What happens after validation?
 
 Which middleware calls it?
 ```
 
-without losing conversational context.
+without losing repository context.
 
 ---
 
@@ -289,7 +362,7 @@ source venv/bin/activate
 
 ---
 
-## 3. Install Dependencies
+## 3. Install Backend Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -297,13 +370,23 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Install Ollama
+## 4. Install Frontend Dependencies
+
+```bash
+cd frontend
+
+npm install
+```
+
+---
+
+## 5. Install Ollama
 
 Download Ollama:
 
 https://ollama.com
 
-Then pull Mistral model:
+Then pull the Mistral model:
 
 ```bash
 ollama run mistral
@@ -311,9 +394,13 @@ ollama run mistral
 
 ---
 
-## 5. Start Backend
+# ▶️ Running the Full System
+
+## Terminal 1 — Backend
 
 ```bash
+venv\Scripts\activate
+
 cd app
 
 uvicorn main:app --reload
@@ -321,7 +408,33 @@ uvicorn main:app --reload
 
 ---
 
-## 6. Open Swagger Docs
+## Terminal 2 — Ollama
+
+```bash
+ollama serve
+```
+
+---
+
+## Terminal 3 — Frontend
+
+```bash
+cd frontend
+
+npm run dev
+```
+
+---
+
+# 🌐 Frontend URL
+
+```text
+http://localhost:5173
+```
+
+---
+
+# 📚 Swagger API Docs
 
 ```text
 http://127.0.0.1:8000/docs
@@ -347,28 +460,31 @@ https://github.com/psf/requests
 ## Step 2 — Ask Questions
 
 ```text
-GET /chat
+How does request handling work?
 ```
 
-Example:
 ```text
-How does request handling work?
+Explain authentication flow.
+```
+
+```text
+Which functions call validate_token?
 ```
 
 ---
 
 # 📌 Future Improvements
 
-- 🔥 Function dependency graphs
-- 🔥 Code flow tracing
-- 🔥 Multi-repository indexing
-- 🔥 Streaming LLM responses
-- 🔥 Frontend workspace UI
-- 🔥 Docker deployment
-- 🔥 Distributed task queues
+- 🔥 Streaming AI responses
+- 🔥 Dependency graph visualization
+- 🔥 Multi-repository intelligence
+- 🔥 Dockerized deployment
+- 🔥 Distributed worker queues
+- 🔥 Incremental indexing
+- 🔥 GPU embedding acceleration
 - 🔥 Agentic repository navigation
-- 🔥 Reranking models
-- 🔥 Repository analytics dashboard
+- 🔥 Repository summarization
+- 🔥 Architecture visualization
 
 ---
 
@@ -378,6 +494,7 @@ How does request handling work?
 - In-memory conversation history
 - Single-node FAISS indexing
 - No distributed workers yet
+- Simplified frontend repository state synchronization
 
 ---
 
@@ -394,7 +511,26 @@ This project demonstrates:
 - Multi-language syntax parsing
 - Async backend processing
 - Repository ingestion pipelines
+- Graph-aware retrieval
+- Frontend/backend API integration
+- Full-stack AI application development
+- Local LLM orchestration
 - AI systems engineering
+
+---
+
+# 🚀 Why This Project Matters
+
+Traditional code search relies heavily on exact keyword matching, making large repositories difficult to navigate and understand.
+
+This project explores a modern AI-first approach to repository understanding by combining:
+- semantic embeddings
+- hybrid retrieval
+- graph-aware reasoning
+- conversational AI
+- multi-language parsing
+
+The result is an AI-powered developer workspace capable of understanding repository structure, retrieving relevant code context, and supporting conversational software engineering workflows.
 
 ---
 
