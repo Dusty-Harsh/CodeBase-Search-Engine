@@ -1,24 +1,25 @@
 # 🚀 Semantic Codebase Search Engine
 
-An AI-powered semantic code search engine that enables developers to query large codebases using natural language instead of traditional keyword matching.
+An AI-powered semantic code search engine and conversational repository assistant that enables developers to query large codebases using natural language.
 
-This project indexes real GitHub repositories, generates embeddings for code chunks, stores them in a FAISS vector database, and retrieves semantically relevant code snippets through similarity search.
+The system indexes real GitHub repositories, parses multi-language codebases using Tree-sitter, generates semantic embeddings, stores vectors in FAISS, performs hybrid retrieval (semantic + keyword search), and provides conversational AI responses over repository context.
 
 ---
 
 # ✨ Features
 
 - 🔍 Semantic code search using embeddings
+- 🌳 Multi-language Tree-sitter parsing
+- 🌐 Python, JavaScript, and TypeScript support
+- 🔀 Hybrid retrieval (Semantic + BM25 keyword search)
+- 💬 AI chat with repositories
+- 🧠 Conversational memory
+- ⚡ Async background indexing
 - 📦 Real GitHub repository indexing
-- 🧠 Natural language querying
-- ⚡ FastAPI backend APIs
-- 🗂️ AST-based function extraction
 - 💾 Persistent FAISS vector storage
-- 📁 Metadata persistence
-- 🚀 Real-time semantic retrieval
-- 🌳 Tree-sitter multi-language parsing
-- 🌐 JavaScript & TypeScript support
-- 🤖 Local LLM-ready architecture
+- 🗂️ Metadata persistence
+- 🚀 FastAPI backend APIs
+- 🤖 Local LLM integration using Ollama + Mistral
 
 ---
 
@@ -29,9 +30,11 @@ Where is authentication implemented?
 
 How are HTTP requests handled?
 
-Find payment processing logic
+Explain routing logic.
 
-Where is JWT validation done?
+Where is middleware used?
+
+How does token validation work?
 ```
 
 ---
@@ -43,20 +46,41 @@ Where is JWT validation done?
                             ↓
                     Repository Cloning
                             ↓
-                      File Scanning
+                  Multi-language File Scanner
                             ↓
-                     AST Parsing Layer
+                 Tree-sitter Syntax Parsing
                             ↓
-                     Function Chunking
+                    Function Extraction
+                            ↓
+                    Chunk Generation
                             ↓
                   Embedding Generation
                             ↓
-                    FAISS Vector Store
+                     FAISS Vector Store
                             ↓
-                  Semantic Similarity Search
+          Hybrid Retrieval (Semantic + BM25)
                             ↓
-                     Relevant Code Results
+                 Relevant Repository Context
+                            ↓
+                  LLM Context Injection
+                            ↓
+                Conversational AI Responses
 ```
+
+---
+
+# 🧠 Advanced Concepts Implemented
+
+- Retrieval-Augmented Generation (RAG)
+- Hybrid Search Systems
+- Semantic Retrieval
+- Vector Databases
+- Conversational Memory
+- Context Injection
+- Multi-language Syntax Parsing
+- Async Background Processing
+- Persistent Vector Indexing
+- Repository Ingestion Pipelines
 
 ---
 
@@ -64,12 +88,15 @@ Where is JWT validation done?
 
 | Component | Technology |
 |---|---|
-| Backend | FastAPI |
-| Embeddings | Sentence Transformers |
+| Backend API | FastAPI |
 | Vector Database | FAISS |
-| Parsing | Python AST |
+| Embeddings | Sentence Transformers |
+| Parsing Engine | Tree-sitter |
+| Keyword Search | BM25 |
+| Local LLM | Ollama + Mistral |
 | Repository Cloning | GitPython |
 | Persistence | Pickle + FAISS Storage |
+| Async Processing | FastAPI BackgroundTasks |
 | Language | Python |
 
 ---
@@ -81,18 +108,30 @@ codebase-search-engine/
 │
 ├── app/
 │   ├── api/
+│   │   └── routes/
+│   │
 │   ├── embeddings/
-│   ├── parser/
-│   ├── services/
-│   ├── vector_store/
+│   │
 │   ├── llm/
+│   │
+│   ├── parser/
+│   │
+│   ├── search/
+│   │
+│   ├── services/
+│   │
+│   ├── vector_store/
+│   │
 │   └── main.py
 │
 ├── indexed_repositories/
-├── vector_indexes/
+│
 ├── metadata/
 │
+├── vector_indexes/
+│
 ├── requirements.txt
+│
 └── README.md
 ```
 
@@ -114,7 +153,7 @@ https://github.com/psf/requests
 
 ---
 
-## Search Codebase
+## Semantic Search
 
 ```http
 GET /search?query=authentication
@@ -122,33 +161,105 @@ GET /search?query=authentication
 
 ---
 
-# 🧠 How Semantic Search Works
+## AI Repository Chat
 
-Traditional code search relies on keyword matching.
+```http
+GET /chat?query=How does authentication work?
+```
 
-This system instead:
-1. Parses functions/classes
-2. Converts code into embeddings
-3. Stores vectors in FAISS
-4. Converts user queries into embeddings
-5. Finds semantically similar code
+---
 
-This allows retrieval even when exact keywords are missing.
+## View Conversation Memory
+
+```http
+GET /memory
+```
+
+---
+
+## Clear Conversation Memory
+
+```http
+DELETE /memory
+```
+
+---
+
+# 🔍 How Hybrid Retrieval Works
+
+The system combines:
+
+## 1. Semantic Search
+- Embedding-based similarity search
+- Captures meaning and intent
+
+## 2. BM25 Keyword Search
+- Exact keyword matching
+- Improves precision for APIs/libraries
+
+## Final Retrieval
+Both retrieval methods are merged to produce highly relevant repository context.
+
+---
+
+# 🧠 Conversational Repository AI
+
+The system supports repository-aware conversations using:
+
+- Hybrid retrieval
+- Context injection
+- Conversational memory
+- Local LLM inference
+
+This enables follow-up questions such as:
+
+```text
+How does authentication work?
+
+What happens after token validation?
+
+Which middleware calls it?
+```
+
+without losing conversational context.
 
 ---
 
 # 💾 Persistent Storage
 
 The project persists:
+
 - FAISS indexes
-- metadata
+- repository metadata
 - indexed repositories
 
 This prevents re-indexing after server restarts.
 
 ---
 
-# ⚡ Setup Instructions
+# ⚡ Async Background Indexing
+
+Repository indexing runs asynchronously using FastAPI BackgroundTasks.
+
+Benefits:
+- non-blocking APIs
+- improved responsiveness
+- scalable indexing pipeline
+
+---
+
+# 🌳 Multi-language Parsing
+
+The project uses Tree-sitter for language-aware syntax parsing.
+
+Currently supported:
+- Python
+- JavaScript
+- TypeScript
+
+---
+
+# 🚀 Setup Instructions
 
 ## 1. Clone Repository
 
@@ -164,6 +275,7 @@ git clone <your-repo-url>
 
 ```bash
 python -m venv venv
+
 venv\Scripts\activate
 ```
 
@@ -171,6 +283,7 @@ venv\Scripts\activate
 
 ```bash
 python3 -m venv venv
+
 source venv/bin/activate
 ```
 
@@ -184,7 +297,21 @@ pip install -r requirements.txt
 
 ---
 
-## 4. Start FastAPI Server
+## 4. Install Ollama
+
+Download Ollama:
+
+https://ollama.com
+
+Then pull Mistral model:
+
+```bash
+ollama run mistral
+```
+
+---
+
+## 5. Start Backend
 
 ```bash
 cd app
@@ -194,7 +321,7 @@ uvicorn main:app --reload
 
 ---
 
-## 5. Open Swagger Docs
+## 6. Open Swagger Docs
 
 ```text
 http://127.0.0.1:8000/docs
@@ -202,35 +329,72 @@ http://127.0.0.1:8000/docs
 
 ---
 
-# 📌 Future Improvements
+# 🧪 Example Workflow
 
-- ⚡ Hybrid retrieval (keyword + semantic)
-- 🔄 Async indexing pipeline
-- 🐳 Docker deployment
-- 🎨 Frontend UI
-- 📊 Repository analytics dashboard
+## Step 1 — Index Repository
+
+```text
+POST /index
+```
+
+Repository:
+```text
+https://github.com/psf/requests
+```
 
 ---
 
-# 🧪 Current Limitations
+## Step 2 — Ask Questions
 
-- Python-only parsing
-- CPU-based embedding generation
+```text
+GET /chat
+```
+
+Example:
+```text
+How does request handling work?
+```
+
+---
+
+# 📌 Future Improvements
+
+- 🔥 Function dependency graphs
+- 🔥 Code flow tracing
+- 🔥 Multi-repository indexing
+- 🔥 Streaming LLM responses
+- 🔥 Frontend workspace UI
+- 🔥 Docker deployment
+- 🔥 Distributed task queues
+- 🔥 Agentic repository navigation
+- 🔥 Reranking models
+- 🔥 Repository analytics dashboard
+
+---
+
+# ⚠️ Current Limitations
+
+- CPU-only embedding generation
+- In-memory conversation history
 - Single-node FAISS indexing
-- Synchronous indexing pipeline
+- No distributed workers yet
 
 ---
 
 # 🎯 Learning Outcomes
 
 This project demonstrates:
+
 - Backend system design
-- Semantic retrieval systems
+- Retrieval-Augmented Generation (RAG)
 - Vector databases
-- Embedding pipelines
-- API engineering
-- Repository parsing
-- Persistent storage design
+- Semantic retrieval systems
+- Hybrid search systems
+- Conversational AI
+- Multi-language syntax parsing
+- Async backend processing
+- Repository ingestion pipelines
+- AI systems engineering
 
 ---
 
