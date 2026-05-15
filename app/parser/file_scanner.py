@@ -17,10 +17,13 @@ IGNORE_DIRECTORIES = [
     "coverage",
     "venv",
     "__pycache__"
+    "tests",
+    "test",
+    "__tests__"
 ]
 
 
-MAX_FILES = 200
+MAX_FILES = 50
 
 
 def get_code_files(repo_path):

@@ -15,8 +15,12 @@ from vector_store.faiss_index import (
     save_index
 )
 
+from parser.dependency_graph import (
+    extract_dependencies
+)
 
-MAX_CHUNKS = 1000
+
+MAX_CHUNKS = 300
 
 
 def index_repository(repo_url):
@@ -33,6 +37,7 @@ def index_repository(repo_url):
     for file in code_files:
 
         chunks = extract_functions_tree_sitter(file)
+        extract_dependencies(file)
 
         all_chunks.extend(chunks)
 
