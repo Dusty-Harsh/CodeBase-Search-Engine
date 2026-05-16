@@ -189,7 +189,7 @@ export default function WorkspacePage() {
                         <Sparkles className="w-4 h-4 text-white" />
                     </div>
                     <div>
-                        <h1 className="font-semibold tracking-tight text-sm">SemanticCode.ai</h1>
+                        <h1 className="font-semibold tracking-tight text-sm">Codebase Search Engine</h1>
                         <p className="text-[10px] text-indigo-400 font-mono uppercase tracking-wider">Workspace Mode</p>
                     </div>
                 </div>

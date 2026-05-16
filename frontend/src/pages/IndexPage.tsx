@@ -164,15 +164,18 @@ export default function App() {
 
                 {/* Hero Section */}
                 <div className={`text-center max-w-3xl mx-auto transition-all duration-1000 ${status !== 'idle' ? 'opacity-0 -translate-y-10 h-0 overflow-hidden' : 'opacity-100 translate-y-0 mb-12'}`}>
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-sm text-indigo-300 mb-8 border-indigo-500/20">
-                        <Sparkles className="w-4 h-4" />
-                        <span>SemanticCode.ai Engine v2.0</span>
+                    <div className="flex flex-col items-center gap-2 mb-8">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass-card text-sm text-indigo-300 border-indigo-500/20">
+                            <Sparkles className="w-4 h-4" />
+                            <span>Codebase Search Engine</span>
+                        </div>
+                        <span className="text-xs text-indigo-400 font-mono uppercase tracking-wider">AI-Powered Repository Intelligence Platform</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 hero-text-gradient">
                         Turn Any Repository Into an AI Workspace
                     </h1>
                     <p className="text-lg md:text-xl text-neutral-400 leading-relaxed font-light">
-                        SemanticCode.ai parses repositories, builds semantic embeddings, constructs dependency graphs,
+                        The Codebase Search Engine parses repositories, builds semantic embeddings, constructs dependency graphs,
                         and transforms your codebase into a conversational AI system.
                     </p>
                 </div>

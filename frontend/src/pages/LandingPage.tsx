@@ -170,7 +170,10 @@ const Navbar = () => {
                     <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
                         <BrainCircuit className="w-5 h-5 text-indigo-400" />
                     </div>
-                    <span className="font-semibold tracking-tight text-lg text-white">SemanticCode<span className="text-indigo-400">.ai</span></span>
+                    <div className="flex flex-col">
+                        <span className="font-semibold tracking-tight text-lg text-white">Codebase Search Engine</span>
+                        <span className="text-[10px] text-indigo-400 font-mono uppercase tracking-wider">AI-Powered Repository Intelligence Platform</span>
+                    </div>
                 </div>
 
                 <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-400">
@@ -240,12 +243,12 @@ const HeroSection = () => {
                 </div>
 
                 <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 leading-[1.1]">
-                    Understand Any Codebase <br className="hidden md:block" />
-                    <span className="text-gradient">with AI Intelligence</span>
+                    Codebase Search Engine <br className="hidden md:block" />
+                    <span className="text-gradient block text-3xl md:text-4xl mt-4">AI-Powered Repository Intelligence Platform</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                    SemanticCode.ai transforms repositories into conversational AI workspaces using semantic retrieval, graph-aware reasoning, and local LLM intelligence.
+                    The Codebase Search Engine transforms repositories into conversational AI workspaces using semantic retrieval, graph-aware reasoning, and local LLM intelligence.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
